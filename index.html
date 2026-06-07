@@ -1,0 +1,397 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gulp | Hydrate to unlock your apps</title>
+    <meta
+      name="description"
+      content="Gulp helps you stay hydrated by connecting water goals with selected app gates, widgets, reminders, and progress tracking."
+    />
+    <style>
+      :root {
+        --bg: #f5fbff;
+        --bg-soft: #eaf5fb;
+        --surface: #ffffff;
+        --blue: #1a9bc2;
+        --blue-deep: #0d5d74;
+        --mint: #65c7a6;
+        --ink: #0d1720;
+        --muted: #607987;
+        --line: #d7e9f1;
+        --warn: #f18b12;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        font-family: "Avenir Next", "Avenir", "Segoe UI", sans-serif;
+        color: var(--ink);
+        background:
+          radial-gradient(circle at 10% 10%, rgba(101, 199, 166, 0.24) 0%, transparent 30%),
+          radial-gradient(circle at 88% 14%, rgba(26, 155, 194, 0.18) 0%, transparent 34%),
+          linear-gradient(160deg, #ffffff 0%, var(--bg) 48%, var(--bg-soft) 100%);
+      }
+
+      .wrap {
+        width: min(1120px, calc(100% - 42px));
+        margin: 0 auto;
+      }
+
+      header {
+        padding: 24px 0 12px;
+      }
+
+      .topbar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 14px;
+      }
+
+      .brand {
+        display: inline-flex;
+        align-items: center;
+        gap: 11px;
+        color: var(--blue-deep);
+        font-size: 1.08rem;
+        font-weight: 800;
+        text-decoration: none;
+      }
+
+      .drop {
+        width: 15px;
+        height: 20px;
+        border-radius: 10px 10px 12px 12px;
+        background: var(--blue);
+        transform: rotate(18deg);
+        box-shadow: 0 0 0 7px rgba(26, 155, 194, 0.14);
+      }
+
+      .status {
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        padding: 7px 12px;
+        background: rgba(255, 255, 255, 0.74);
+        color: var(--muted);
+        font-size: 0.8rem;
+        font-weight: 750;
+      }
+
+      .hero {
+        padding: 28px 0 8px;
+        display: grid;
+        grid-template-columns: 1.1fr 0.9fr;
+        gap: 26px;
+        align-items: stretch;
+      }
+
+      h1 {
+        margin: 0;
+        max-width: 11ch;
+        color: var(--ink);
+        font-size: clamp(2.3rem, 6vw, 4.5rem);
+        line-height: 0.92;
+        letter-spacing: -0.02em;
+      }
+
+      .sub {
+        margin: 16px 0 0;
+        max-width: 58ch;
+        color: var(--muted);
+        font-size: clamp(1rem, 2vw, 1.2rem);
+        line-height: 1.58;
+      }
+
+      .cta {
+        margin-top: 24px;
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+      }
+
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 44px;
+        border-radius: 12px;
+        padding: 12px 18px;
+        font-weight: 800;
+        text-decoration: none;
+        transition: transform 180ms ease, box-shadow 180ms ease;
+      }
+
+      .btn:hover {
+        transform: translateY(-2px);
+      }
+
+      .btn-primary {
+        color: #fff;
+        background: linear-gradient(150deg, var(--blue-deep), var(--blue));
+        box-shadow: 0 14px 26px rgba(13, 93, 116, 0.24);
+      }
+
+      .btn-secondary {
+        color: var(--blue-deep);
+        background: rgba(255, 255, 255, 0.76);
+        border: 1px solid var(--line);
+      }
+
+      .phone {
+        position: relative;
+        overflow: hidden;
+        min-height: 430px;
+        border: 1px solid var(--line);
+        border-radius: 30px;
+        padding: 14px;
+        background: linear-gradient(180deg, #ffffff 0%, #eaf6fb 100%);
+        box-shadow:
+          0 32px 46px rgba(29, 78, 100, 0.18),
+          inset 0 0 0 1px rgba(255, 255, 255, 0.72);
+      }
+
+      .screen {
+        height: 100%;
+        border: 1px solid var(--line);
+        border-radius: 20px;
+        background: #f8fcff;
+        padding: 16px;
+        display: grid;
+        grid-template-rows: auto auto auto 1fr;
+        gap: 12px;
+      }
+
+      .chip {
+        width: fit-content;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        padding: 6px 10px;
+        background: #fff;
+        color: var(--blue-deep);
+        font-size: 0.74rem;
+        font-weight: 800;
+      }
+
+      .metric {
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        padding: 13px;
+        background: var(--surface);
+      }
+
+      .metric strong {
+        display: block;
+        color: var(--ink);
+        font-size: 1.12rem;
+      }
+
+      .metric span {
+        color: var(--muted);
+        font-size: 0.82rem;
+      }
+
+      .progress {
+        height: 11px;
+        border-radius: 999px;
+        background: #dcecf4;
+        overflow: hidden;
+      }
+
+      .progress span {
+        display: block;
+        width: 75%;
+        height: 100%;
+        background: var(--blue);
+      }
+
+      .feature-list {
+        margin-top: 20px;
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 12px;
+      }
+
+      .card {
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        padding: 16px;
+        background: rgba(255, 255, 255, 0.86);
+      }
+
+      .card h3 {
+        margin: 0 0 8px;
+        color: var(--ink);
+        font-size: 1rem;
+      }
+
+      .card p {
+        margin: 0;
+        color: var(--muted);
+        font-size: 0.92rem;
+        line-height: 1.5;
+      }
+
+      .panel {
+        margin-top: 14px;
+        border: 1px solid var(--line);
+        border-radius: 16px;
+        background: rgba(255, 255, 255, 0.76);
+        padding: 15px;
+      }
+
+      .panel h2 {
+        margin: 0;
+        color: var(--ink);
+        font-size: 1rem;
+      }
+
+      .panel p {
+        margin: 8px 0 0;
+        color: var(--muted);
+        font-size: 0.92rem;
+        line-height: 1.5;
+      }
+
+      footer {
+        padding: 22px 0 36px;
+        color: var(--muted);
+        font-size: 0.9rem;
+      }
+
+      .footer-inner {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 14px;
+        flex-wrap: wrap;
+        border-top: 1px solid var(--line);
+        padding-top: 18px;
+      }
+
+      .footer-links {
+        display: inline-flex;
+        gap: 14px;
+        flex-wrap: wrap;
+      }
+
+      .footer-links a {
+        color: var(--blue-deep);
+        font-weight: 800;
+        text-decoration: none;
+      }
+
+      .footer-links a:hover {
+        text-decoration: underline;
+      }
+
+      @media (max-width: 960px) {
+        .hero {
+          grid-template-columns: 1fr;
+        }
+
+        .phone {
+          min-height: 360px;
+        }
+      }
+
+      @media (max-width: 760px) {
+        .feature-list {
+          grid-template-columns: 1fr;
+        }
+
+        .footer-inner {
+          align-items: flex-start;
+          flex-direction: column;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="wrap">
+      <div class="topbar">
+        <a class="brand" href="./">
+          <span class="drop" aria-hidden="true"></span>
+          <span>Gulp</span>
+        </a>
+        <div class="status">iOS app in setup</div>
+      </div>
+    </header>
+
+    <main class="wrap hero">
+      <section>
+        <h1>Drink first. Scroll after.</h1>
+        <p class="sub">
+          Gulp helps you turn hydration into a practical daily habit by linking water goals with selected app gates,
+          reminders, widgets, and progress tracking.
+        </p>
+        <div class="cta">
+          <a class="btn btn-primary" href="mailto:randyventures06@gmail.com?subject=Gulp%20Support">Contact support</a>
+          <a class="btn btn-secondary" href="privacy/">Privacy Policy</a>
+        </div>
+        <section class="panel">
+          <h2>Support</h2>
+          <p>
+            For account, billing, technical, or privacy questions, email
+            <a href="mailto:randyventures06@gmail.com">randyventures06@gmail.com</a>.
+          </p>
+        </section>
+      </section>
+
+      <aside class="phone" aria-label="Gulp app preview">
+        <div class="screen">
+          <div class="chip">Today</div>
+          <div class="metric">
+            <strong>6 of 8 glasses</strong>
+            <span>7 day hydration streak</span>
+          </div>
+          <div class="metric">
+            <strong>Apps are unlocked</strong>
+            <span>Relocks in 55 min</span>
+          </div>
+          <div style="display: grid; gap: 10px; align-content: start;">
+            <div class="progress"><span></span></div>
+            <div class="metric">
+              <strong>Gated apps</strong>
+              <span>Choose individual apps and categories with Apple's Screen Time picker.</span>
+            </div>
+            <div class="metric">
+              <strong>Gulp Pro</strong>
+              <span>Unlock custom intervals, active hours, Health sync, and progress history.</span>
+            </div>
+          </div>
+        </div>
+      </aside>
+    </main>
+
+    <section class="wrap feature-list">
+      <article class="card">
+        <h3>Hydration with accountability</h3>
+        <p>Set a daily water goal and use app gates as a clear reason to take the next sip.</p>
+      </article>
+      <article class="card">
+        <h3>Private Screen Time controls</h3>
+        <p>Use Apple's native picker to select apps and categories. Selections stay on device.</p>
+      </article>
+      <article class="card">
+        <h3>Widgets and reminders</h3>
+        <p>Keep your progress visible on your Home Screen or Lock Screen and get timely nudges.</p>
+      </article>
+    </section>
+
+    <footer class="wrap">
+      <div class="footer-inner">
+        <div>Gulp by Randy Ventures</div>
+        <nav class="footer-links" aria-label="Footer">
+          <a href="privacy/">Privacy Policy</a>
+          <a href="terms/">Terms of Use</a>
+          <a href="mailto:randyventures06@gmail.com">Support</a>
+        </nav>
+      </div>
+    </footer>
+  </body>
+</html>
