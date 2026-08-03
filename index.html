@@ -44,7 +44,7 @@
         "downloadUrl": "https://apps.apple.com/us/app/id6777773350",
         "installUrl": "https://apps.apple.com/us/app/id6777773350",
         "author": { "@type": "Person", "name": "Randy Torres" },
-        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+        "isAccessibleForFree": false,
         "featureList": [
           "Blocks distracting apps until you hit your water goal",
           "Apple Screen Time app and category picker",
@@ -177,6 +177,7 @@
       .nav-cta:hover { filter: brightness(1.05); background: linear-gradient(135deg, var(--aqua-deep), var(--aqua)) !important; }
 
       @media (max-width: 620px) {
+        .nav-links > a:not(.nav-cta) { display: none; }
         .nav-text { display: none; }
       }
 
@@ -559,7 +560,7 @@
     <main>
       <section class="wrap hero">
         <div>
-          <span class="eyebrow"><span class="dot"></span> Free on the App Store</span>
+          <span class="eyebrow"><span class="dot"></span> Gulp Pro subscription required</span>
           <h1>Drink first.<br /><span class="grad">Scroll after.</span></h1>
           <p class="sub">
             Gulp turns hydration into a daily habit by linking your water goal with Screen Time app
@@ -606,8 +607,8 @@
                 <span>Relocks in 55 min</span>
               </div>
               <div class="s-card">
-                <strong>Gulp Pro</strong>
-                <span>Custom intervals, active hours &amp; Health sync</span>
+                <strong>Gulp Pro active</strong>
+                <span>All features unlocked</span>
               </div>
               <div class="s-locks" aria-hidden="true">
                 <div class="ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div>
@@ -669,8 +670,8 @@
           <div>
             <h2>Ready to drink first?</h2>
             <p>
-              Gulp is free on the App Store. Set a goal, pick the apps that distract you, and let
-              hydration unlock your day.
+              Download Gulp, then choose weekly or annual Gulp Pro access during setup. An active
+              subscription is required, and no free trial is offered.
             </p>
           </div>
           <div class="actions">
